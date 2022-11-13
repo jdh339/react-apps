@@ -1,13 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import Calculator from './Calculator';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Calculator />
+    <footer className='footer'>
+      <a target='_blank' rel='noreferrer' href='https://icons8.com/icon/9M06nT4c-UY4/calculator'>Calculator</a>
+      <span> icon by </span>
+      <a target='_blank' rel='noreferrer' href='https://icons8.com'>Icons8</a>
+    </footer>
   </React.StrictMode>
 );
 

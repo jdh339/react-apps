@@ -1,0 +1,24 @@
+:root {
+  --theme-color: #b696db;
+}
+
+.Calculator {
+  text-align: center;
+}
+
+.Calculator-header {
+  background-color: var(--theme-color);
+  min-height: 97vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.footer {
+  background-color: var(--theme-color);
+  text-align: right;
+  min-height: 3vh;
+}
