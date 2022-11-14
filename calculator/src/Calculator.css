@@ -1,18 +1,100 @@
-:root {
-  --theme-color: #b696db;
+.Calculator {
+  background-color: #d6dfeb;
+  height: 600px;
+  width: 400px;
+  font-size: calc(10px + 2vmin);
+  border: 4px solid #66798F;
+  border-radius: 30px;
+  margin:auto;
 }
 
-.Calculator {
+.display-area {
+  height: 25%;
+  font-size: 56px;
+  font-family: 'Courier New', Courier, monospace;
+  color: gray;
+  font-weight: bold;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.display-screen {
+  width: 80%;
+  height: 50%;
+  background-color: #BAE0BD;
+  border: 8px inset #5E9C76;
+  font:inherit;
+  display:flex;
+  justify-content:right;
+  align-items:center;
+  padding: 8px;
+}
+
+.display-screen-content{
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 100%;
+}
+
+.button-area {
+  height: 75%;
+  background-color: #b0c1d4;
+  border-radius: 0px 0px 25px 25px;
+  font-size: 24px;
+  font-family: 'Courier New', Courier, monospace;
+  color: black;
+  font-weight: bold;
+}
+
+.numberpad {
+  float: left;
+  width: 75%;
   text-align: center;
 }
 
-.Calculator-header {
-  background-color: var(--theme-color);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.operationpad {
+  float: right;
+  width: 25%;
+  text-align: center;
+}
+
+.numberpad-button {
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  margin-top: 20px;
+  margin-left: 20px;
+  border: 0px;
+  box-shadow: -3px 4px #999;
+  font: inherit;
+}
+
+.numberpad-button:hover {
+  background-color: #E1E1E1;
+}
+
+.numberpad-button:active {
+  box-shadow: none;
+  transform: translate(-3px, 4px);
+}
+
+.operationpad-button {
+  width: 60px;
+  height: 60px;
+  background-color: #ffeea3;
+  border: 0px solid #d6dfeb;
+  margin-top: 20px;
+  font: inherit;
+  box-shadow: -3px 4px #999;
+}
+
+.operationpad-button:hover {
+  background-color: #F3E08F;
+}
+
+.operationpad-button:active {
+  background-color: #F3E08F;
+  box-shadow: none;
+  transform: translate(-3px, 4px);
 }

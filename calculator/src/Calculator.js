@@ -1,40 +1,65 @@
 import React from 'react';
 import './Calculator.css';
 
-function NumberButton(props) {
+function NumberPadButton(props) {
   return (
-    <button onClick={props.onClick}>
-      {props.number}
+    <button className='numberpad-button' onClick={props.onClick}>
+      {props.value}
     </button>
   );
 }
 
-function OperationButton(props) {
+function OperationPadButton(props) {
   return (
-    <button onClick={props.onClick}>
+    <button className='operationpad-button' onClick={props.onClick}>
       {props.operation}
     </button>
   )
 }
 
+function DisplayScreen(props) {
+  return (
+    <div className='display-screen'>
+      <span className='display-screen-content'>
+        {props.value}
+      </span>
+    </div>
+  )
+}
+
 class NumberPad extends React.Component {
-  renderNumber(n) {
+  renderNumberButton(n) {
     return (
-      <NumberButton key={n} number={n} onClick={() => this.props.onClick(n)} />
+      <NumberPadButton key={n} value={n} onClick={() => this.props.onClickNumber(n)} />
+    );
+  }
+
+  renderSpecialButton(s) {
+    return (
+      <NumberPadButton key={s} value={s} onClick={() => this.props.onClickSpecial(s)} />
     );
   }
 
   render() {
     const numberButtons = [...Array(10).keys()].map(digit => {
-      return this.renderNumber(digit);
+      return this.renderNumberButton(digit);
     });
 
     return (
-      <div className='NumberPad'>
-        <div className='NumberPad-row'>{numberButtons.slice(7)}</div>
-        <div className='NumberPad-row'>{numberButtons.slice(4, 7)}</div>
-        <div className='NumberPad-row'>{numberButtons.slice(1, 4)}</div>
-        <div className='NumberPad-row'>{numberButtons.slice(0, 1)}</div>
+      <div className='numberpad'>
+        <div className='numberpad-row'>
+          {this.renderSpecialButton('x\u00B2')}
+          {this.renderSpecialButton('\u221Ax')}
+          {this.renderSpecialButton('C')}
+        </div>
+        <div className='numberpad-row'>{numberButtons.slice(7)}</div>
+        <div className='numberpad-row'>{numberButtons.slice(4, 7)}</div>
+        <div className='numberpad-row'>{numberButtons.slice(1, 4)}</div>
+        <div className='numberpad-row'>
+          {this.renderSpecialButton('+/-')}
+          {numberButtons[0]}
+          {this.renderSpecialButton('.')}
+        </div>
       </div>
     );
   }
@@ -44,17 +69,17 @@ class OperationPad extends React.Component {
   renderOperation(op) {
     return (
       <div>
-        <OperationButton operation={op} onClick={() => this.props.onClick(op)} />
+        <OperationPadButton operation={op} onClick={() => this.props.onClick(op)} />
       </div>
     );
   }
 
   render() {
     return (
-      <div className='OperationPad'>
+      <div className='operationpad'>
         {this.renderOperation("+")}
         {this.renderOperation("-")}
-        {this.renderOperation("X")}
+        {this.renderOperation("*")}
         {this.renderOperation("/")}
         {this.renderOperation("=")}
       </div>
@@ -68,7 +93,7 @@ class Calculator extends React.Component {
     this.state = {
       result: null,
       operation: null,
-      operands: Array(2).fill(null),
+      operands: Array(2).fill(""),
     }
   }
 
@@ -76,16 +101,28 @@ class Calculator extends React.Component {
     // TODO - implement this.
   }
 
-  handleNumberPadClick(n) {
+  // Handles the digits 0-9.
+  handleNumberPadNumberClick(n) {
     const operands = this.state.operands.slice();
     if (!this.state.operation) {
-      operands[0] = n;
+      operands[0] += n;
     } else {
-      operands[1] = n;
+      operands[1] += n;
     }
     this.setState({
       operands: operands
     });
+  }
+
+  // Handles the . and +/- buttons.
+  handleNumberPadSpecialClick(s) {
+    if (s === 'C') {
+      this.setState({
+        result: null,
+        operation: null,
+        operands: Array(2).fill(""),
+      })
+    }
   }
 
   handleOperationPadClick(op) {
@@ -101,12 +138,16 @@ class Calculator extends React.Component {
   render() {
     return (
       <div className="Calculator">
-        <header className="Calculator-header">
-          <div>
-            <NumberPad onClick={(n) => this.handleNumberPadClick(n)} />
-            <OperationPad onClick={(op) => this.handleOperationPadClick(op)} />
-          </div>
-        </header>
+        <div className='display-area'>
+          <DisplayScreen value={this.state.operands[0]} />
+        </div>
+        <div className='button-area'>
+          <NumberPad
+            onClickNumber={(n) => this.handleNumberPadNumberClick(n)}
+            onClickSpecial={(s) => this.handleNumberPadSpecialClick(s)}
+          />
+          <OperationPad onClick={(op) => this.handleOperationPadClick(op)} />
+        </div>
       </div>
     );
   }
