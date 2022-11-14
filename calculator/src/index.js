@@ -8,11 +8,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Calculator />
-    <footer className='footer'>
-      <a target='_blank' rel='noreferrer' href='https://icons8.com/icon/9M06nT4c-UY4/calculator'>Calculator</a>
-      <span> icon by </span>
-      <a target='_blank' rel='noreferrer' href='https://icons8.com'>Icons8</a>
-    </footer>
   </React.StrictMode>
 );
 
